@@ -1,6 +1,6 @@
 from lxml.html import HtmlElement
 
-class scraper():
+class Scraper():
 
     def element(self, html: HtmlElement, xpath: str) -> HtmlElement | None:
         """
@@ -64,4 +64,4 @@ class scraper():
                 return True
         return False
 
-scraper = scraper()
+scraper = Scraper()
