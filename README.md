@@ -1,2 +1,3 @@
 # lightscraper
-Light web scraping library
+Lightweight web scraping library for use in my own projects
+
