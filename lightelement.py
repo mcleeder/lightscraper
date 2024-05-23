@@ -1,8 +1,17 @@
-from lxml.html import HtmlElement
+from lxml.html import HtmlElement, fromstring, etree
 
-class Scraper():
 
-    def element(self, html: HtmlElement, xpath: str) -> HtmlElement | None:
+class LightElement():
+
+    _context: HtmlElement
+
+    def __init__(self, html: str | HtmlElement):
+        if isinstance(html, str):
+            self._context = fromstring(html)
+        else:
+            self._context = html
+
+    def element(self, xpath: str) -> HtmlElement | None:
         """
         Returns the first element match
 
@@ -13,9 +22,9 @@ class Scraper():
         Returns:
             HtmlElement
         """
-        return html.xpath(f".{xpath}")[0] if html.xpath(f".{xpath}") else None
+        return LightElement(self._context.xpath(f".{xpath}")[0]) if self._context.xpath(f".{xpath}") else None
 
-    def elements(self, html: HtmlElement, xpath: str) -> list[HtmlElement | None]:
+    def elements(self, xpath: str) -> list[HtmlElement | None]:
         """
         Returns all matching elements
 
@@ -26,9 +35,10 @@ class Scraper():
         Returns:
             list[HtmlElement]
         """
-        return [*html.xpath(f".{xpath}")]
+        return [LightElement(e) for e in self._context.xpath(f".{xpath}")]
 
-    def contains_string(self, element: HtmlElement, target: str) -> bool:
+
+    def contains_string(self, target: str) -> bool:
         """
         Recursive search of element and children for a single string
 
@@ -39,14 +49,14 @@ class Scraper():
         Returns:
             bool
         """
-        if target in (element.text or ''):
+        if target in (self._context.text or ''):
             return True
-        for child in element.iterchildren():
+        for child in self._context.iterchildren():
             if self.contains_string(child, target):
                 return True
         return False
 
-    def contains_any_string(self, element: HtmlElement, targets: list[str]) -> bool:
+    def contains_any_string(self, targets: list[str]) -> bool:
         """
         Recursive search of element and children for any string in list
 
@@ -57,11 +67,9 @@ class Scraper():
         Returns:
             bool
         """
-        if any([x in (element.text or '') for x in targets]):
+        if any([x in (self._context.text or '') for x in targets]):
             return True
-        for child in element.iterchildren():
+        for child in self._context.iterchildren():
             if self.contains_any_string(child, targets):
                 return True
         return False
-
-scraper = Scraper()
