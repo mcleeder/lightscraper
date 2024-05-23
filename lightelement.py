@@ -1,15 +1,26 @@
-from lxml.html import HtmlElement, fromstring
+from lxml.html import HtmlElement, fromstring, etree
 
 
 class LightElement():
 
-    _context: HtmlElement
+    def __init__(self, element):
+        if isinstance(element, str):
+            element = fromstring(element)
+        if not isinstance(element, etree._Element):
+            raise TypeError("Expected an lxml.etree._Element instance")
+        self._element = element
 
-    def __init__(self, html: str | HtmlElement):
-        if isinstance(html, str):
-            self._context = fromstring(html)
+    def __getattr__(self, name):
+        return getattr(self._element, name)
+
+    def __setattr__(self, name, value):
+        if name == "_element":
+            super().__setattr__(name, value)
         else:
-            self._context = html
+            setattr(self._element, name, value)
+
+    def __str__(self):
+        return etree.tostring(self._element).decode('utf-8')
 
     def element(self, xpath: str) -> HtmlElement | None:
         """
@@ -21,7 +32,7 @@ class LightElement():
         Returns:
             HtmlElement
         """
-        return LightElement(self._context.xpath(f".{xpath}")[0]) if self._context.xpath(f".{xpath}") else None
+        return LightElement(self._element.xpath(f".{xpath}")[0]) if self._element.xpath(f".{xpath}") else None
 
     def elements(self, xpath: str) -> list[HtmlElement | None]:
         """
@@ -33,7 +44,7 @@ class LightElement():
         Returns:
             list[HtmlElement]
         """
-        return [LightElement(e) for e in self._context.xpath(f".{xpath}")]
+        return [LightElement(e) for e in self._element.xpath(f".{xpath}")]
 
 
     def contains_string(self, target: str) -> bool:
@@ -46,9 +57,9 @@ class LightElement():
         Returns:
             bool
         """
-        if target in (self._context.text or ''):
+        if target in (self._element.text or ''):
             return True
-        for child in self._context.iterchildren():
+        for child in self._element.iterchildren():
             if self.contains_string(child, target):
                 return True
         return False
@@ -63,9 +74,9 @@ class LightElement():
         Returns:
             bool
         """
-        if any([x in (self._context.text or '') for x in targets]):
+        if any([x in (self._element.text or '') for x in targets]):
             return True
-        for child in self._context.iterchildren():
+        for child in self._element.iterchildren():
             if self.contains_any_string(child, targets):
                 return True
         return False
