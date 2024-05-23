@@ -31,7 +31,7 @@ element = LightElement(html_str)
 
 ### Methods
 
-#### `element(xpath: str) -> HtmlElement | None`
+#### `element(xpath: str)`
 
 Returns the first element that matches the given XPath expression.
 
@@ -40,7 +40,7 @@ first_p = element.element("//p")
 print(first_p)  # Output: <p>Hello, World!</p>
 ```
 
-#### `elements(xpath: str) -> list[HtmlElement | None]`
+#### `elements(xpath: str) -> list`
 
 Returns all elements that match the given XPath expression.
 
