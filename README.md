@@ -17,7 +17,6 @@ pip install lxml
 First, import the necessary components from `lxml.html` and your `LightElement` class:
 
 ```python
-from lxml.html import fromstring
 from your_module import LightElement
 ```
 
