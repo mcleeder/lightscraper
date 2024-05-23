@@ -1,4 +1,4 @@
-from lxml.html import HtmlElement, fromstring, etree
+from lxml.html import HtmlElement, fromstring
 
 
 class LightElement():
