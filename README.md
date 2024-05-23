@@ -40,7 +40,7 @@ first_p = element.element("//p")
 print(first_p)  # Output: <p>Hello, World!</p>
 ```
 
-#### `elements(xpath: str) -> list`
+#### `elements(xpath: str) -> list[LightElement]`
 
 Returns all elements that match the given XPath expression.
 
