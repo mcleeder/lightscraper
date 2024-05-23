@@ -1,4 +1,5 @@
-from lxml.html import HtmlElement, fromstring, etree
+from lxml.html import fromstring, etree
+from typing import Self
 
 
 class LightElement():
@@ -22,7 +23,7 @@ class LightElement():
     def __str__(self):
         return etree.tostring(self._element).decode('utf-8')
 
-    def element(self, xpath: str):
+    def element(self, xpath: str) -> Self:
         """
         Returns the first element match
 
@@ -34,7 +35,7 @@ class LightElement():
         """
         return LightElement(self._element.xpath(f".{xpath}")[0]) if self._element.xpath(f".{xpath}") else None
 
-    def elements(self, xpath: str) -> list:
+    def elements(self, xpath: str) -> list[Self | None]:
         """
         Returns all matching elements
 
@@ -60,7 +61,7 @@ class LightElement():
         if target in (self._element.text or ''):
             return True
         for child in self._element.iterchildren():
-            if self.contains_string(child, target):
+            if LightElement(child).contains_string(target):
                 return True
         return False
 
@@ -77,6 +78,6 @@ class LightElement():
         if any([x in (self._element.text or '') for x in targets]):
             return True
         for child in self._element.iterchildren():
-            if self.contains_any_string(child, targets):
+            if LightElement(child).contains_any_string(targets):
                 return True
         return False
