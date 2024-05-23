@@ -16,7 +16,6 @@ class LightElement():
         Returns the first element match
 
         Args:
-            html: element to search
             xpath: xpath selector
 
         Returns:
@@ -29,7 +28,6 @@ class LightElement():
         Returns all matching elements
 
         Args:
-            html: element to search
             xpath: xpath selector
 
         Returns:
@@ -43,7 +41,6 @@ class LightElement():
         Recursive search of element and children for a single string
 
         Args:
-            element: element to search
             target: string
 
         Returns:
@@ -61,7 +58,6 @@ class LightElement():
         Recursive search of element and children for any string in list
 
         Args:
-            element: element to search
             targets: list of strings
 
         Returns:
