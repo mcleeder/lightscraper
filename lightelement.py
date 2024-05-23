@@ -22,7 +22,7 @@ class LightElement():
     def __str__(self):
         return etree.tostring(self._element).decode('utf-8')
 
-    def element(self, xpath: str) -> HtmlElement | None:
+    def element(self, xpath: str):
         """
         Returns the first element match
 
@@ -34,7 +34,7 @@ class LightElement():
         """
         return LightElement(self._element.xpath(f".{xpath}")[0]) if self._element.xpath(f".{xpath}") else None
 
-    def elements(self, xpath: str) -> list[HtmlElement | None]:
+    def elements(self, xpath: str) -> list:
         """
         Returns all matching elements
 
