@@ -31,7 +31,7 @@ element = LightElement(html_str)
 
 ### Methods
 
-#### `element(xpath: str)`
+#### `element(xpath: str) -> LightElement`
 
 Returns the first element that matches the given XPath expression.
 
