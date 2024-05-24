@@ -1,3 +1,5 @@
+![00001-204338421](https://github.com/mcleeder/lightscraper/assets/68357049/cc2286ec-19c9-4ffc-a9b4-f3a6914aa954)
+
 # Light Scraper
 
 `Light Scraper` is a Python library that provides a convenient wrapper around the `lxml.html.HtmlElement` class, making it easier to work with HTML elements and perform common operations such as XPath queries and string searches.
