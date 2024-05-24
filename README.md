@@ -1,6 +1,6 @@
-# LightElement
+# Light Scraper
 
-`LightElement` is a Python library that provides a convenient wrapper around the `lxml.html.HtmlElement` class, making it easier to work with HTML elements and perform common operations such as XPath queries and string searches.
+`Light Scraper` is a Python library that provides a convenient wrapper around the `lxml.html.HtmlElement` class, making it easier to work with HTML elements and perform common operations such as XPath queries and string searches.
 
 ## Installation
 
