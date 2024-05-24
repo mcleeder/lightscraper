@@ -12,14 +12,6 @@ pip install lxml
 
 ## Usage
 
-### Importing the Library
-
-First, import the necessary components from `lxml.html` and your `LightElement` class:
-
-```python
-from lightelement import LightElement
-```
-
 ### Creating a `LightElement`
 
 You can create a `LightElement` from an HTML string or an `lxml.etree._Element` instance:
