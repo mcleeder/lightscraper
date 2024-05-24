@@ -65,7 +65,6 @@ print(has_any)  # Output: True
 Here is a complete example demonstrating the use of `LightElement`:
 
 ```python
-from lxml.html import fromstring
 from your_module import LightElement
 
 html = """
