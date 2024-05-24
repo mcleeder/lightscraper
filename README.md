@@ -1,4 +1,4 @@
-![00001-204338421](https://github.com/mcleeder/lightscraper/assets/68357049/cc2286ec-19c9-4ffc-a9b4-f3a6914aa954)
+![00001-204338421](https://github.com/mcleeder/lightscraper/assets/68357049/13a1010d-bb0f-4d36-83f9-adb02f684e2c)
 
 # Light Scraper
 
