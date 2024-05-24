@@ -64,10 +64,8 @@ print(has_any)  # Output: True
 
 ## Example
 
-Here is a complete example demonstrating the use of `LightElement`:
-
 ```python
-from your_module import LightElement
+from lightelement import LightElement
 
 html = """
 <div>
