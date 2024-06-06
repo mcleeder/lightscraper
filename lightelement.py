@@ -3,7 +3,6 @@ from typing import Self
 
 
 class LightElement():
-
     def __init__(self, element):
         if isinstance(element, str):
             element = fromstring(element)
@@ -19,6 +18,18 @@ class LightElement():
             super().__setattr__(name, value)
         else:
             setattr(self._element, name, value)
+
+    @property
+    def attrib(self):
+        return self._element.attrib
+    
+    @property
+    def tag(self):
+        return self._element.tag
+
+    @property
+    def text(self):
+        return self._element.text
 
     def __str__(self):
         return etree.tostring(self._element).decode('utf-8')
