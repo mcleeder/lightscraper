@@ -1,29 +1,23 @@
-from lxml.html import fromstring, etree
-from typing import Self
+from lxml import etree, html
 
 
-class LightElement():
+class LightElement(etree.ElementBase):
 
-    def __init__(self, element):
-        if isinstance(element, str):
-            element = fromstring(element)
-        if not isinstance(element, etree._Element):
-            raise TypeError("Expected an lxml.etree._Element instance")
-        self._element = element
+    @classmethod
+    def from_html(cls, html_string: str) -> 'LightElement':
+        """
+        Factory method to create LightElement instance from HTML string
 
-    def __getattr__(self, name):
-        return getattr(self._element, name)
+        Args:
+            html_string: HTML string to parse
 
-    def __setattr__(self, name, value):
-        if name == "_element":
-            super().__setattr__(name, value)
-        else:
-            setattr(self._element, name, value)
+        Returns:
+            LightElement
+        """
+        html_tree = html.fromstring(html_string)
+        return cls(html_tree)
 
-    def __str__(self):
-        return etree.tostring(self._element).decode('utf-8')
-
-    def element(self, xpath: str) -> Self:
+    def element(self, xpath: str) -> 'LightElement':
         """
         Returns the first element match
 
@@ -31,11 +25,12 @@ class LightElement():
             xpath: xpath selector
 
         Returns:
-            HtmlElement
+            LightElement
         """
-        return LightElement(self._element.xpath(f".{xpath}")[0]) if self._element.xpath(f".{xpath}") else None
+        found = self.xpath(f".{xpath}")
+        return LightElement(found[0]) if found else None
 
-    def elements(self, xpath: str) -> list[Self | None]:
+    def elements(self, xpath: str) -> list['LightElement' | None]:
         """
         Returns all matching elements
 
@@ -43,9 +38,10 @@ class LightElement():
             xpath: xpath selector
 
         Returns:
-            list[HtmlElement]
+            list[LightElement]
         """
-        return [LightElement(e) for e in self._element.xpath(f".{xpath}")]
+        found = self.xpath(f".{xpath}")
+        return [LightElement(e) for e in found]
 
 
     def contains_string(self, target: str) -> bool:
@@ -58,9 +54,9 @@ class LightElement():
         Returns:
             bool
         """
-        if target in (self._element.text or ''):
+        if target in (self.text or ''):
             return True
-        for child in self._element.iterchildren():
+        for child in self.iterchildren():
             if LightElement(child).contains_string(target):
                 return True
         return False
@@ -75,9 +71,9 @@ class LightElement():
         Returns:
             bool
         """
-        if any([x in (self._element.text or '') for x in targets]):
+        if any([x in (self.text or '') for x in targets]):
             return True
-        for child in self._element.iterchildren():
+        for child in self.iterchildren():
             if LightElement(child).contains_any_string(targets):
                 return True
         return False
