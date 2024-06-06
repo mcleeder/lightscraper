@@ -1,6 +1,8 @@
-# LightElement
+![00001-204338421](https://github.com/mcleeder/lightscraper/assets/68357049/13a1010d-bb0f-4d36-83f9-adb02f684e2c)
 
-`LightElement` is a Python library that provides a convenient wrapper around the `lxml.html.HtmlElement` class, making it easier to work with HTML elements and perform common operations such as XPath queries and string searches.
+# Light Scraper
+
+`Light Scraper` is a Python library that provides a convenient wrapper around the `lxml.html.HtmlElement` class, making it easier to work with HTML elements and perform common operations such as XPath queries and string searches.
 
 ## Installation
 
@@ -11,14 +13,6 @@ pip install lxml
 ```
 
 ## Usage
-
-### Importing the Library
-
-First, import the necessary components from `lxml.html` and your `LightElement` class:
-
-```python
-from lightelement import LightElement
-```
 
 ### Creating a `LightElement`
 
@@ -70,11 +64,8 @@ print(has_any)  # Output: True
 
 ## Example
 
-Here is a complete example demonstrating the use of `LightElement`:
-
 ```python
-from lxml.html import fromstring
-from your_module import LightElement
+from lightelement import LightElement
 
 html = """
 <div>
